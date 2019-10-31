@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> NCR Note detection </title>
+
+	<!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
+
+	<!-- bootstrap -->
+	
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  	<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
+      <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  /*height: 300px;  Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.left{
+	padding: 35px 300px 0px 0px;
+}
+.right{
+	padding: 10px 0px 0px 100px;
+}
+		img-input{
+		  max-width:256px;
+		  padding:10px;
+
+			}
+			input[type=file]{
+			height: 38px;
+			/*background:#2d2d2d;*/
+			width: 400px;
+		}
+		body{
+			background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+			align-content: center;
+			font-family: 'Merriweather', serif;
+		}
+		.navbar{
+			background-color: #08a3aa;
+		}
+		label{
+			font-weight: bold;
+			color:  #FFF;
+			/*padding-left: 0px;*/
+		}
+		.heading{
+			text-align: center;
+			color: #FFF
+		}
+		}
+	</style>	
+
+</head>
+<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+		  <span class="navbar-brand mb-0 h1">
+		  <img src="https://www.ncr.com/content/ncr/us/en/home.coreimg.100.90.jpeg/structure/jcr:content/root/header/brand/1558552460980/ncr-logo-2017.jpeg" style="margin-top: -45px">
+			</span>
+			<span class="heading">
+				<h1>Note Detection Using ML (TEAM : MLGuys)</h1>
+			</span>
+		</nav>
+</header>
+
+
+
+<body>
+
+			<div class="row">
+			  <div class="column left" >
+			    <!-- <h2>Column 1</h2>
+			    <p>Some text..</p> -->
+			  </div>
+			  <div class="column right" >
+			  <!--   <h2>Column 2</h2>
+			    <p>Some text..</p> -->
+			  </div>
+			</div>
+
+	<div class="container" class="main" >
+		<!-- <center> -->
+	<!--  -->
+	<div class="row">	
+		<form action="/" method="POST" enctype="multipart/form-data">
+
+		<!--  -->
+		<div class="column left" >
+		<center>	
+			<div class="form-group">
+				<label  for="fileUpload">Upload Image</label>
+				<input id='file'  class="form-control" type="file" name="file" onchange="readURL(this);" />
+			</div>
+			<br/><br/>
+
+			<div style="width: 250px; height: 250px">
+				<img id="img-input"  alt="your image" style="width: 400px; height: 300px"/>	
+			</div>
+			
+			<input type="hidden" id="imgname" name="imgname" value="">
+
+			<br><br><br><br>
+
+			<!-- <button type="button" class="btn btn-success btn-block" id="submitBtn">Predict</button> -->
+			<input type="submit" class="btn btn-success btn-block" style="    width: 51%; font-size: medium;" id="submitBtn" value="Predict">
+
+			<br>
+			
+			<!-- <strong> Prediction  Table <br></strong> -->
+			<!-- <div class="alert alert-warning">
+			  	0 = 100 rupees<br>
+				1 = 500 rupees<br>
+			</div> -->
+		    <!-- <h3 style="text-align: center;color: #FFF"> OUTPUT PREDICTED : </h3>
+		    <div style="font-size:300%;text-align:center;color: #FFF" id="result">
+		    	<img src=""  style="display: inline-block;" id="spinner"/>
+		    </div>
+			<hr> -->
+		</center>	
+		 </div>
+		 <div class="column right" >	
+		 	
+		 	<h3 style="text-align: center;color: #FFF"> OUTPUT PREDICTED : </h3>
+		    <div style="font-size:300%;text-align:center;color: #FFF" id="result1">
+		    	<img src=""  style="display: inline-block;" id="spinner"/>
+		    </div>
+			<hr>
+			<br>
+
+		 	<h3 style="text-align: center;color: #FFF"> SERIAL NUMBER : </h3>
+		    <div style="font-size:300%;text-align:center;color: #FFF" id="result2">
+		    	<img src=""  style="display: inline-block;" id="spinner"/>
+		    </div>
+		    <hr>
+		    <br>
+		    <h3 style="text-align: center;color: #FFF"> COUNTERFEIT OR GENUINE :  </h3>
+		    <div style="font-size:300%;text-align:center;color: #FFF" id="result3">
+		    	<img src=""  style="display: inline-block;" id="spinner"/>
+		    </div>
+		    <hr>
+
+		 </div>
+		</form>
+	</div>	
+	<!--  -->
+		<!-- </center> -->
+	</div>
+
+	<script type="text/javascript">
+		$( document ).ready(function() {
+		   let imgSrc = $('#img-input').attr('src');
+		   if(!imgSrc){
+		   		$('#img-input').hide();
+		   }
+
+		});
+		function readURL(input) {
+			console.log("start");
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                var n =input.files[0].name;
+                console.log("srcread = "+n);
+                $('#imgname').val(n);
+                console.log("n = "+$('#imgname').val());
+
+                sessionStorage.setItem('key', n);
+
+
+                reader.onload = function (e) {
+                    $('#img-input')
+                        .attr('src', e.target.result).show();
+                        
+                };
+
+                // console.log("start"+input.files[0]);
+
+                reader.readAsDataURL(input.files[0]);
+                 // console.log("src = "+ $('input[type=file]').val());
+            }
+        }
+	</script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submitBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            var d = $('#imgname').val();
+            $('#spinner').attr("src","https://ui-ex.com/images/transparent-gif-spinner-1.gif");
+             // console.log("src 2= "+ $('input[type=file]').val());
+            // $('#result').html("Loading...")
+            $.post(
+                '/',
+                {
+                    // accidentindex: $('#accidentindex').val(),
+                    // age_of_driver: $('#age_of_driver').val()  
+                    imgname : d
+                },
+                function(data) {
+                	// let val = data==='1' ? "500 rupees note":"100 rupees note";
+                	var val=""; 
+                	var sno="";
+                	var cg="";
+                	
+                	if (data[0]==='0') {
+					  val = "10 rupees note";
+					} else if (data[0]==='1') {
+					  val = "20 rupees note";
+					} else if (data[0]==='2') {
+					  val = "100 rupees note";
+					}else if (data[0]==='2'){
+					  val = "500 rupees note";
+					}
+					else{
+						val = "-----";
+					}
+
+					if(data[1]=='0')
+					{
+						cg="COUNTERFEIT";
+					}
+					else{
+						cg="GENUINE";
+					}
+
+					sno=data.slice(2);
+
+                	// sleep(200);
+                    $('#spinner').off();
+                    $('#result1').html(val);
+                    $('#result2').html(sno);
+                    $('#result3').html(cg);
+
+                }
+            );
+        });
+    });
+	</script>
+	
+
+</body>
+</html>

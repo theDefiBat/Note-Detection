@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+<body>
+
+<h2>Road Accident Prediction and Classification </h2>
+
+<hr>
+<div id="result"></div>
+<hr>
+
+<div class="container">
+    <form action="/" method="POST">
+        Accident Index:<br>
+        <input type="text" name="Accidentindex" value="200501BS00003" id="accidentindex">
+        <br><br>
+        
+        Age_of_Driver :<br>
+        <input type="text" name="Age_of_Driver" value="3.555348" id="age_of_driver">
+        <br><br>
+
+        <input type="submit" id="submitBtn" value="Submit">
+    </form> 
+
+    <br><br>
+    <br><br>
+
+    <!-- <form action = "/success" method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" />  
+        <input type = "submit" value="Upload">  
+    </form>  --> 
+        
+        <br><br>
+        <br><br>
+       
+</div>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submitBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            $('#result').html('Loading...');
+
+            $.post(
+                '/',
+                {
+                    accidentindex: $('#accidentindex').val(),
+                    age_of_driver: $('#age_of_driver').val()  
+                },
+                function(data) {
+                    $('#result').html(data);
+                }
+            );
+        });
+    });
+</script>
+
+</body>
+</html>

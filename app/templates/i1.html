@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> NCR Note detection </title>
+
+	<!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
+
+	<!-- bootstrap -->
+	
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+      <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		img-input{
+		  max-width:256px;
+		  padding:10px;
+			}
+			input[type=file]{
+			height: 38px;
+			/*background:#2d2d2d;*/
+			width: 400px;
+		}
+		body{
+			background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		}
+		.navbar{
+			background-color: #4fb94a;
+		}
+		label{
+			font-weight: bold;
+			color:  #FFF;
+			padding-left: 50px;
+		}
+
+		}
+	</style>	
+
+</head>
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+		  <span class="navbar-brand mb-0 h1">Navbar</span>
+		</nav>
+</header>
+<body>
+
+	<div class="container" class="main">
+		
+		<form action="/" method="POST" enctype="multipart/form-data">
+			<div class="form-group">
+				<label  for="fileUpload">Upload Image</label>
+				<input   id="filen" class="form-control" type="file" name="file" onchange="readURL(this);" />
+			</div>
+			<br/><br/>
+
+			<div style="width: 250px; height: 250px">
+				<img id="img-input"  alt="your image" />	
+			</div>
+			
+
+			<br><br>
+
+			<!-- <button type="button" class="btn btn-success btn-block" id="submitBtn">Predict</button> -->
+			<input type="submit" class="btn btn-success btn-block" style="    width: 51%; font-size: medium;" id="submitBtn" value="Predict">
+
+			<br><br>
+			<div class="col-4 jumbotron text-center" style="position: relative; left: 50">
+			<strong> Prediction  Table <br></strong>
+			<div class="alert alert-warning">
+			  	0 = 100 rupees<br>
+				1 = 500 rupees<br>
+			</div>
+		    <h3 style="text-align: center;"> OUTPUT PREDICTED : </h3>
+		    <div style="font-size:300%;text-align:center;" id="result"></div>
+			<hr>
+			</div>
+
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		function readURL(input) {
+			console.log("start");
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-input')
+                        .attr('src', e.target.result);
+                };
+
+                console.log("start"+input.files[0]);
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+	</script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('submitBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            $('#result').html('Loading...');
+
+            $.post(
+                '/',
+                {
+                    // accidentindex: $('#accidentindex').val(),
+                    // age_of_driver: $('#age_of_driver').val()  
+                },
+                function(data) {
+                    $('#result').html(data);
+                }
+            );
+        });
+    });
+	</script>
+	
+
+</body>
+</html>
